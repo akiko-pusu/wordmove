@@ -2,6 +2,12 @@ module Wordmove
   class Logger < ::Logger
     MAX_LINE = 70
 
+    def initialize(device)
+      super(device, formatter: proc { |_severity, _datetime, _progname, msg|
+        "\n#{msg}\n".gsub('password', '[secret]')
+      })
+    end
+
     def task(title)
       prefix = "▬" * 2
       title = " #{title} "
